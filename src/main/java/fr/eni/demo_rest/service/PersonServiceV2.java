@@ -57,4 +57,20 @@ public class PersonServiceV2 {
 
         return serviceResponse;
     }
+
+    public ServiceResponse<Person> getById(int id){
+        // Cas 1 : Erreur 703
+        if (id < 1){
+            ServiceResponse<Person> serviceResponse = new ServiceResponse<>();
+            serviceResponse.code = "703";
+
+            return serviceResponse;
+        }
+
+        // Cas 2 : 202
+        ServiceResponse<Person> serviceResponse = new ServiceResponse<>();
+        serviceResponse.code = "202";
+
+        return serviceResponse;
+    }
 }
