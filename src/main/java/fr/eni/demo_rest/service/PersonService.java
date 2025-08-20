@@ -1,7 +1,7 @@
 package fr.eni.demo_rest.service;
 
 import fr.eni.demo_rest.bo.Person;
-import fr.eni.demo_rest.dao.DAOPerson;
+import fr.eni.demo_rest.dao.IDAOPerson;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 public class PersonService {
 
     // Injecter en Autowired (obselete)
-    private final DAOPerson daoPerson;
+    private final IDAOPerson daoPerson;
 
-    public PersonService(DAOPerson daoPerson) {
+    public PersonService(IDAOPerson daoPerson) {
         this.daoPerson = daoPerson;
     }
 

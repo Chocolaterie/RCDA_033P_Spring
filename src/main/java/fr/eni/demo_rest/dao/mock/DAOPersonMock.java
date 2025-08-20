@@ -1,17 +1,18 @@
-package fr.eni.demo_rest.dao;
+package fr.eni.demo_rest.dao.mock;
 
 import fr.eni.demo_rest.bo.Person;
+import fr.eni.demo_rest.dao.IDAOPerson;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DAOPerson {
+public class DAOPersonMock implements IDAOPerson {
 
     List<Person> DB_Persons;
 
-    public DAOPerson(){
+    public DAOPersonMock(){
         // Liste de vide
         DB_Persons = new ArrayList<>();
 
@@ -30,6 +31,7 @@ public class DAOPerson {
      * Récupérer toute les personnes de la base de données
      * @return
      */
+    @Override
     public List<Person> selectAll(){
         return DB_Persons;
     }

@@ -1,7 +1,7 @@
 package fr.eni.demo_rest.service;
 
 import fr.eni.demo_rest.bo.Person;
-import fr.eni.demo_rest.dao.DAOPerson;
+import fr.eni.demo_rest.dao.IDAOPerson;
 import fr.eni.demo_rest.locale.LocaleHelper;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -13,13 +13,13 @@ import java.util.Locale;
 @Service
 public class PersonServiceV2 {
 
-    private final DAOPerson daoPerson;
+    private final IDAOPerson daoPerson;
 
     private final MessageSource messageSource;
 
     private final LocaleHelper localeHelper;
 
-    public PersonServiceV2(DAOPerson daoPerson, MessageSource messageSource, LocaleHelper localeHelper) {
+    public PersonServiceV2(IDAOPerson daoPerson, MessageSource messageSource, LocaleHelper localeHelper) {
         this.daoPerson = daoPerson;
         this.messageSource = messageSource;
         this.localeHelper = localeHelper;

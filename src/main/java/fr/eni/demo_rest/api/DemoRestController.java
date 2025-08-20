@@ -1,7 +1,7 @@
 package fr.eni.demo_rest.api;
 
 import fr.eni.demo_rest.bo.Person;
-import fr.eni.demo_rest.dao.mongo.PersonMongoRepository;
+import fr.eni.demo_rest.dao.IDAOPerson;
 import fr.eni.demo_rest.service.PersonService;
 import fr.eni.demo_rest.service.PersonServiceV2;
 import fr.eni.demo_rest.service.ServiceResponse;
@@ -16,14 +16,14 @@ public class DemoRestController {
 
     private final PersonService personService;
     private final PersonServiceV2 personServiceV2;
-    private final PersonMongoRepository personMongoRepository;
+    private final IDAOPerson daoPerson;
 
     public DemoRestController(PersonService personService,
                               PersonServiceV2 personServiceV2,
-                              PersonMongoRepository personMongoRepository) {
+                              IDAOPerson daoPerson) {
         this.personService = personService;
         this.personServiceV2 = personServiceV2;
-        this.personMongoRepository = personMongoRepository;
+        this.daoPerson = daoPerson;
     }
 
     /**
@@ -77,7 +77,7 @@ public class DemoRestController {
     @GetMapping("api/test")
     public List<Person> testMongo(){
         // TODO Appeler le repo mongo db person
-        List<Person> persons = personMongoRepository.findAll();
+        List<Person> persons = daoPerson.selectAll();
         return persons;
     }
 }
