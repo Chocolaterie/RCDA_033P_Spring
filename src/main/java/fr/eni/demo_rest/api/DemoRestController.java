@@ -4,6 +4,7 @@ import fr.eni.demo_rest.bo.Person;
 import fr.eni.demo_rest.service.PersonService;
 import fr.eni.demo_rest.service.PersonServiceV2;
 import fr.eni.demo_rest.service.ServiceResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +58,7 @@ public class DemoRestController {
         return persons;
     }
 
+    @Operation(summary = "Endpoint pour récupérer la liste des personnes majeures")
     @GetMapping("api/v2/display-off-age-persons")
     public ServiceResponse<List<Person>> apiDisplayOffAgePersonsV2(){
         // Appeler le service (récupérer les personnes majeures)
