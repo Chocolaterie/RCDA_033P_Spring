@@ -2,11 +2,13 @@ package fr.eni.demo_rest.dao.mock;
 
 import fr.eni.demo_rest.bo.Person;
 import fr.eni.demo_rest.dao.IDAOPerson;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Profile("mock")
 @Component
 public class DAOPersonMock implements IDAOPerson {
 
