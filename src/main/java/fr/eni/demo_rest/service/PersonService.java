@@ -2,18 +2,19 @@ package fr.eni.demo_rest.service;
 
 import fr.eni.demo_rest.bo.Person;
 import fr.eni.demo_rest.dao.DAOPerson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PersonService {
 
     // Injecter en Autowired (obselete)
-    @Autowired
-    private DAOPerson daoPerson;
+    private final DAOPerson daoPerson;
+
+    public PersonService(DAOPerson daoPerson) {
+        this.daoPerson = daoPerson;
+    }
 
     /**
      * La feature qui permet de récupérer la liste des personnes majeures

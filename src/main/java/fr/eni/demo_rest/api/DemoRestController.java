@@ -1,11 +1,11 @@
 package fr.eni.demo_rest.api;
 
 import fr.eni.demo_rest.bo.Person;
+import fr.eni.demo_rest.dao.mongo.PersonMongoRepository;
 import fr.eni.demo_rest.service.PersonService;
 import fr.eni.demo_rest.service.PersonServiceV2;
 import fr.eni.demo_rest.service.ServiceResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +14,17 @@ import java.util.List;
 @RestController
 public class DemoRestController {
 
-    @Autowired
-    PersonService personService;
+    private final PersonService personService;
+    private final PersonServiceV2 personServiceV2;
+    private final PersonMongoRepository personMongoRepository;
 
-    @Autowired
-    PersonServiceV2 personServiceV2;
+    public DemoRestController(PersonService personService,
+                              PersonServiceV2 personServiceV2,
+                              PersonMongoRepository personMongoRepository) {
+        this.personService = personService;
+        this.personServiceV2 = personServiceV2;
+        this.personMongoRepository = personMongoRepository;
+    }
 
     /**
      * Retourner un Objet/Instance = Du Json (les "new" de quelques choses)
@@ -66,5 +72,12 @@ public class DemoRestController {
 
         // Retourner le json du service
         return serviceResponse;
+    }
+
+    @GetMapping("api/test")
+    public List<Person> testMongo(){
+        // TODO Appeler le repo mongo db person
+        List<Person> persons = personMongoRepository.findAll();
+        return persons;
     }
 }

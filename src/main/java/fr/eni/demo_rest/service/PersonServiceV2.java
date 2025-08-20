@@ -3,7 +3,6 @@ package fr.eni.demo_rest.service;
 import fr.eni.demo_rest.bo.Person;
 import fr.eni.demo_rest.dao.DAOPerson;
 import fr.eni.demo_rest.locale.LocaleHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,14 +13,17 @@ import java.util.Locale;
 @Service
 public class PersonServiceV2 {
 
-    @Autowired
-    private DAOPerson daoPerson;
+    private final DAOPerson daoPerson;
 
-    @Autowired
-    MessageSource messageSource;
+    private final MessageSource messageSource;
 
-    @Autowired
-    LocaleHelper localeHelper;
+    private final LocaleHelper localeHelper;
+
+    public PersonServiceV2(DAOPerson daoPerson, MessageSource messageSource, LocaleHelper localeHelper) {
+        this.daoPerson = daoPerson;
+        this.messageSource = messageSource;
+        this.localeHelper = localeHelper;
+    }
 
     public ServiceResponse<List<Person>> displayOffAgePersons(){
 
