@@ -4,5 +4,7 @@ import fr.eni.demo_rest.bo.Person;
 
 import java.util.List;
 
-public interface IDAOPerson extends IDAOCrud<Person> {
+public interface IDAOCrud<T> {
+
+    List<T> selectAll();
 }
