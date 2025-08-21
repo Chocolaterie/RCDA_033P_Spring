@@ -27,11 +27,11 @@ public class AuthService {
         return key;
     }
 
-    public String createToken(String email, String password){
+    public ServiceResponse<String> createToken(String email, String password){
 
         // Tester que le couple email/mot de passe d'un user est correct
-        if (!email.equals("toto@gmail.com") && !password.equals("123456")){
-            return "Couple email/mot de passe incorrect";
+        if (!email.equals("toto@gmail.com") || !password.equals("123456")){
+            return ServiceHelper.buildResponse("716", "Couple email/mot de passe incorrect");
         }
 
         // (milliseconde * nb seconde * nb minute) * nb heure
@@ -46,7 +46,7 @@ public class AuthService {
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
 
-        return token;
+        return ServiceHelper.buildResponse("204", "Authentifié(e) avec succès", token);
     }
 
     public String checkToken(String token){
