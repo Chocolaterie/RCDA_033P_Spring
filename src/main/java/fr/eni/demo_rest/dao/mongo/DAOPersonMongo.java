@@ -19,6 +19,7 @@ public class DAOPersonMongo implements IDAOPerson {
 
     @Override
     public List<Person> selectAll() {
+
         return personMongoRepository.findAll();
     }
 }
