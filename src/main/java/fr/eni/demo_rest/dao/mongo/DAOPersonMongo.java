@@ -22,4 +22,9 @@ public class DAOPersonMongo implements IDAOPerson {
 
         return personMongoRepository.findAll();
     }
+
+    @Override
+    public Person selectPersonByLogin(String email, String password) {
+        return personMongoRepository.findByEmailAndPassword(email, password);
+    }
 }

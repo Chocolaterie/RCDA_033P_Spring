@@ -7,4 +7,6 @@ import java.util.List;
 public interface IDAOPerson {
 
     List<Person> selectAll();
+
+    Person selectPersonByLogin(String email, String password);
 }

@@ -1,5 +1,7 @@
 package fr.eni.demo_rest.service;
 
+import fr.eni.demo_rest.bo.Person;
+import fr.eni.demo_rest.dao.IDAOPerson;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -18,6 +20,12 @@ public class AuthService {
     @Value("${app.jwt.secret}")
     private String SECRET_KEY;
 
+    private final IDAOPerson daoPerson;
+
+    public AuthService(IDAOPerson daoPerson) {
+        this.daoPerson = daoPerson;
+    }
+
     private Key getSecretKey() {
         // convertir un string en base 64
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
@@ -29,8 +37,11 @@ public class AuthService {
 
     public ServiceResponse<String> createToken(String email, String password){
 
+        // Essayer de trouver une personne avec le couple email/password
+        Person loggedPerson = daoPerson.selectPersonByLogin(email, password);
+
         // Tester que le couple email/mot de passe d'un user est correct
-        if (!email.equals("toto@gmail.com") || !password.equals("123456")){
+        if (loggedPerson == null){
             return ServiceHelper.buildResponse("716", "Couple email/mot de passe incorrect");
         }
 
@@ -40,7 +51,7 @@ public class AuthService {
 
         // Le code pour générer un token
         String token = Jwts.builder()
-                .subject("test@gmail.com")
+                .subject(loggedPerson.email)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(tokenLifetime)
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)

@@ -1,13 +1,9 @@
 package fr.eni.demo_rest.api;
 
 import fr.eni.demo_rest.service.AuthService;
+import fr.eni.demo_rest.service.ServiceResponse;
 import io.jsonwebtoken.*;
 import org.springframework.web.bind.annotation.*;
-
-class LoginRequest {
-    public String email;
-    public String password;
-}
 
 @RestController
 public class AuthRestController {
@@ -19,7 +15,7 @@ public class AuthRestController {
     }
 
     @PostMapping("api/create-token")
-    public String createToken(@RequestBody LoginRequest loginRequest){
+    public ServiceResponse<String> createToken(@RequestBody LoginRequest loginRequest){
         return authService.createToken(loginRequest.email, loginRequest.password);
     }
 

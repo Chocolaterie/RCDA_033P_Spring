@@ -11,5 +11,8 @@ public class Person {
 
     public String pseudo;
 
+    public String email;
+    public String password;
+
     public int age = 0;
 }

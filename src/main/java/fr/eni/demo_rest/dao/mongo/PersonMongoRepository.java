@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface PersonMongoRepository extends MongoRepository<Person, String> {
 
+    Person findByEmailAndPassword(String email, String password);
 }
