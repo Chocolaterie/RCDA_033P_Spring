@@ -27,7 +27,13 @@ public class AuthService {
         return key;
     }
 
-    public String createToken(){
+    public String createToken(String email, String password){
+
+        // Tester que le couple email/mot de passe d'un user est correct
+        if (!email.equals("toto@gmail.com") && !password.equals("123456")){
+            return "Couple email/mot de passe incorrect";
+        }
+
         // (milliseconde * nb seconde * nb minute) * nb heure
         Date tokenLifetime = new Date(System.currentTimeMillis() + ((1000 * 60 * 60) * 1));
         //Date tokenLifetime = new Date(System.currentTimeMillis() + 1000);
@@ -51,7 +57,7 @@ public class AuthService {
 
         // ATTENTION SELON LE CAS LE TOKEN EST SUFFIXE D'UN DISCRIMINANT
         // ex Bearer montoken
-        // je dois ignorer les 7 premiers caractère
+        // je dois ignorer les 7 premiers caractères (le mot Bearer avec l'espace)
         token = token.substring(7);
 
         try {
