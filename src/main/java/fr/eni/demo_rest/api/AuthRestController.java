@@ -20,7 +20,7 @@ public class AuthRestController {
     }
 
     @GetMapping("api/check-token")
-    public String checkToken(@RequestHeader(value = "Authorization", required = true) String token){
+    public ServiceResponse<Boolean> checkToken(@RequestHeader(value = "Authorization", required = true) String token){
       return authService.checkToken(token);
     }
 }

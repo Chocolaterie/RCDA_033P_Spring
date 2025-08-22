@@ -1,6 +1,7 @@
 package fr.eni.demo_rest.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.eni.demo_rest.service.AuthService;
 import fr.eni.demo_rest.service.ServiceHelper;
 import fr.eni.demo_rest.service.ServiceResponse;
 import jakarta.servlet.FilterChain;
@@ -19,20 +20,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AuthService authService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // Si l'url est different de /api/create-token -> verifier le token
+        String url = request.getRequestURI();
 
-        if (true){
-            // Forcer la réponse http à être en JSON
-            response.setContentType("application/json");
+        if (!url.startsWith("/api/create-token")) {
+            // Récupérer le token
+            String token = request.getHeader("Authorization");
 
-            // il faut ecrire dans le body de la réponse ton message métier
-            // Object mapper pour mettre du contenu dans la réponse
-            ServiceResponse serviceResponse = ServiceHelper.buildResponse("704", "You shall not pass");
+            // Appeler notre service qui check le token
+            ServiceResponse<Boolean> serviceResponse = authService.checkToken(token);
 
-            objectMapper.writeValue(response.getWriter(), serviceResponse);
+            // Si pas bon (!= 202 code métier)
+            if (!serviceResponse.code.equals("202")) {
+                // Forcer la réponse http à être en JSON
+                response.setContentType("application/json");
 
-            return;
+                objectMapper.writeValue(response.getWriter(), serviceResponse);
+                return;
+            }
         }
 
         // passer (Oui/Ok)
