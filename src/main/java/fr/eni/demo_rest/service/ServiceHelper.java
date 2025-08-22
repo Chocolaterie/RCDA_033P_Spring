@@ -10,7 +10,7 @@ public class ServiceHelper {
      * @return
      * @param <T>
      */
-    static <T> ServiceResponse<T> buildResponse(String code, String message, T data){
+    static public <T> ServiceResponse<T> buildResponse(String code, String message, T data){
         ServiceResponse<T> serviceResponse = new ServiceResponse<T>();
         serviceResponse.code = code;
         serviceResponse.message = message;
@@ -22,7 +22,7 @@ public class ServiceHelper {
         return serviceResponse;
     }
 
-    static <T> ServiceResponse<T> buildResponse(String code, String message){
+    static public <T> ServiceResponse<T> buildResponse(String code, String message){
         return buildResponse(code, message,null);
     }
 }

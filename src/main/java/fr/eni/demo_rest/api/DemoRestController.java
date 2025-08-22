@@ -6,6 +6,7 @@ import fr.eni.demo_rest.service.PersonService;
 import fr.eni.demo_rest.service.PersonServiceV2;
 import fr.eni.demo_rest.service.ServiceResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,6 +65,7 @@ public class DemoRestController {
         return persons;
     }
 
+    //@PreAuthorize("isAuthenticated()")
     @Operation(summary = "Endpoint pour récupérer la liste des personnes majeures")
     @GetMapping("api/v2/display-off-age-persons")
     public ServiceResponse<List<Person>> apiDisplayOffAgePersonsV2(){
