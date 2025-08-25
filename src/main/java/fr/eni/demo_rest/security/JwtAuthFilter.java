@@ -2,7 +2,6 @@ package fr.eni.demo_rest.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.eni.demo_rest.service.AuthService;
-import fr.eni.demo_rest.service.ServiceHelper;
 import fr.eni.demo_rest.service.ServiceResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
